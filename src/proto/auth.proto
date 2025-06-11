@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package Accelerator.Auth;
+
+import "google/protobuf/empty.proto";
+
+service AuthService {
+  rpc version(google.protobuf.Empty) returns (AuthVersion) {}
+  rpc getProfile(Account) returns (ProfileDetail) {}
+}
+
+message Account {
+  string id = 1;
+}
+
+message ProfileDetail{
+    string msg = 1;
+}
+
+message AuthVersion {
+  string tag = 1;
+}

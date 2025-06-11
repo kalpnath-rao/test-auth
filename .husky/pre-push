@@ -1,0 +1,9 @@
+branch=$(git symbolic-ref --short HEAD)
+case "$branch" in
+  "development"|"testing"|"staging"|"production"|"main"|"master")
+    echo ">> Push to $branch branch is not allowed"
+    exit 1
+    ;;
+esac
+
+exit 0

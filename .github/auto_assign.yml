@@ -1,0 +1,13 @@
+addReviewers: true
+addAssignees: author
+reviewers:
+  - makoneth
+  - konami12
+  - HelaGone
+  - molop3
+  - Uzzyel
+  - jnaranjotelevisa
+  - fersan96
+  - hevertvsa
+  - carlos-sardina-75
+numberOfReviewers: 0

@@ -1,0 +1,5 @@
+{
+  "INVALID": "Invalid OTP",
+  "EXPIRED": "Your OTP Has Expired. Request another OTP",
+  "MAX_ATTEMPTS_EXCEEDED": "You've reached your attempt limit. Please try again in 15 minutes."
+}

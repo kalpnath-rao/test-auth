@@ -1,0 +1,23 @@
+{
+  "NOT_FOUND": "El correo no está registrado",
+  "BLOCKED": "¡Tu cuenta está bloqueada! Por favor contacta al administrador",
+  "WRONG_CREDENTIALS": "Contraseňa incorrecta",
+  "LOGIN_BLOCKED": "Has alcanzado el límite de {{LOGIN_ATTEMPTS}} intentos de inicio de sesión.Por seguridad, tu acceso se ha bloqueado durante {{BLOCK_TIME}} minutos. Inténtalo de nuevo más tarde o restablece tu contraseña si no la recuerdas.",
+  "WRONG_MFA_TOKEN": "Token inválido! Por favor inicia sesión nuevamente",
+  "WRONG_MFA_OTP": "El código OTP es inválido",
+  "LOGIN_SUCCESS": "Inicio de sesión exitoso",
+  "MFA_VERIFIED": "OTP verificado exitosamente",
+  "SIGNUP_SUCCESS": "Registro exitoso",
+  "ACCOUNT_ALREADY_EXISTS": "Esta dirección de correo ya está registrada",
+  "INVALID_TOKEN": "Token inválido! Por favor regístrate nuevamente",
+  "MFA_RESET": "MFA reiniciado exitosamente",
+  "SUCCESS_PERMISSIONS": "Permisos obtenidos exitosamente",
+  "EMAIL_ALREADY_EXISTS": "Este correo ya está registrado. Inicia sesión para continuar",
+  "PHONE_ALREADY_EXISTS": "Este número de teléfono ya está registrado",
+  "PHONE_NOT_FOUND": "El número de teléfono no está registrado",
+  "EMAIL_NOT_FOUND": "El correo no está registrado",
+  "INVALID_EMAIL_FORMAT": "Formato de correo inválido",
+  "MFA_ENABLED_SUCCESS": "MFA habilitado exitosamente",
+  "MFA_DISABLED_SUCCESS": "MFA deshabilitado exitosamente",
+  "EMAIL_ALREADY_EXISTS_SOCIAL": "Este correo ya está registrado con {{SOCIAL_NAME}}. Inicia sesión para continuar"
+}

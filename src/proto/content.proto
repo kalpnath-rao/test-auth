@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package Accelerator.Content;
+
+import "google/protobuf/empty.proto";
+
+service ContentService {
+  rpc version(google.protobuf.Empty) returns (ContentVersion) {}
+}
+
+message ContentVersion {
+  string tag = 1;
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package Accelerator.Location;
+
+import "google/protobuf/empty.proto";
+
+service LocationService {
+  rpc version(google.protobuf.Empty) returns (LocationVersion) {}
+}
+
+message LocationVersion {
+  string tag = 1;
+}

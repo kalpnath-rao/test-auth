@@ -1,0 +1,23 @@
+{
+  "NOT_FOUND": "Email isn't registered with us",
+  "BLOCKED": "Your account is blocked! Please contact administrator",
+  "WRONG_CREDENTIALS": "Invalid credentials",
+  "LOGIN_BLOCKED": "You've reached the limit of {{LOGIN_ATTEMPTS}} login attempts.For security reasons, your access has been blocked for {{BLOCK_TIME}} minutes. Please try again later or reset your password if you forget it.",
+  "WRONG_MFA_TOKEN": "Invalid token! Please login again",
+  "WRONG_MFA_OTP": "OTP code is invalid",
+  "LOGIN_SUCCESS": "Login Successful",
+  "MFA_VERIFIED": "OTP verified successfully",
+  "SIGNUP_SUCCESS": "Sign Up Successful",
+  "ACCOUNT_ALREADY_EXISTS": "This Email Address already registered with us",
+  "INVALID_TOKEN": "Invalid token! Please SignUp again",
+  "MFA_RESET": "MFA reset successfully",
+  "SUCCESS_PERMISSIONS": "Permissions fetched Successfully",
+  "EMAIL_ALREADY_EXISTS": "This email is already registered. Please login to continue",
+  "PHONE_ALREADY_EXISTS": "This Phone Number already registered with us",
+  "PHONE_NOT_FOUND": "Phone Number isn't registered with us",
+  "EMAIL_NOT_FOUND": "Email isn't registered with us",
+  "INVALID_EMAIL_FORMAT": "Invalid email format",
+  "MFA_ENABLED_SUCCESS": "MFA enabled successfully",
+  "MFA_DISABLED_SUCCESS": "MFA disabled successfully",
+  "EMAIL_ALREADY_EXISTS_SOCIAL": "This email is already registered with {{SOCIAL_NAME}}. Please login to continue"
+}

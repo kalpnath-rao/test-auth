@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package Accelerator.Notification;
+
+import "google/protobuf/empty.proto";
+
+service NotificationService {
+  rpc version(google.protobuf.Empty) returns (NotificationVersion) {}
+  rpc deleteUser(DeleteReq) returns (google.protobuf.Empty) {}
+}
+
+message DeleteReq{
+  string id = 1;
+}
+
+message NotificationVersion {
+  string tag = 1;
+}

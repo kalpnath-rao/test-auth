@@ -1,0 +1,265 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type GraphQLResultDto {
+  """HTTP Status"""
+  statusCode: Int!
+
+  """Message"""
+  message: String!
+
+  """Result"""
+  result: String!
+}
+
+type Name {
+  first: String!
+  last: String!
+}
+
+type AccountType {
+  """MongoDB ID for the User Document"""
+  _id: ID!
+
+  """Email address of the user"""
+  email: String!
+
+  """User type (enum)"""
+  type: String!
+
+  """Password of the user"""
+  password: String
+
+  """Blocked at"""
+  blockedAt: String
+
+  """Full name of the user"""
+  name: Name!
+}
+
+type AdminLoginResponse {
+  """MFA Token"""
+  mfaToken: String
+
+  """QR Code URL for MFA Setup"""
+  qrUrl: String
+
+  """MFA Platform (enum)"""
+  platform: String
+
+  """Access Token"""
+  accessToken: String
+
+  """Refresh Token"""
+  refreshToken: String
+
+  """Auth Token"""
+  authToken: String
+
+  """Next step (enum)"""
+  nextStep: String!
+}
+
+type MFAVerifyResponse {
+  """JWT Authentication Token"""
+  authToken: String!
+
+  """JWT Refresh Token"""
+  refreshToken: String!
+}
+
+type SocialResult {
+  """Next Step (enum)"""
+  nextStep: String!
+
+  """JWT Authentication Token"""
+  authToken: String
+
+  """JWT Refresh Token"""
+  refreshToken: String
+}
+
+type PermissionsResult {
+  """List of permissions"""
+  PERMISSIONS: [String!]
+
+  """List of roles"""
+  ROLES: [String!]
+}
+
+type CheckEmailResponse {
+  exists: Boolean!
+  isBlocked: Boolean!
+  deletedAt: Boolean!
+  socialId: String
+  socialType: String
+  socialTypeName: String
+  nextStep: EmailCheckStep!
+}
+
+enum EmailCheckStep {
+  LOGIN
+  REGISTER
+}
+
+type OnboardingResponse {
+  success: Boolean!
+  mfaToken: String!
+}
+
+type VerifyOnboardOutput {
+  """Success"""
+  success: Boolean!
+
+  """Next step"""
+  nextStep: String!
+
+  """JWT Authentication Token"""
+  authToken: String!
+
+  """JWT Refresh Token"""
+  refreshToken: String!
+}
+
+type Query {
+  """Find account by email"""
+  findByEmailAndPasswordValue(email: String!): AccountType!
+
+  """Find account by email"""
+  findByEmail(email: String!): AccountType!
+
+  """Get permissions of admin"""
+  permissions: PermissionsResult!
+  checkEmail(input: CheckEmailInput!): CheckEmailResponse!
+  currentSession: GraphQLResultDto!
+}
+
+input CheckEmailInput {
+  email: String!
+}
+
+type Mutation {
+  """ADMIN Login using email || phone and password"""
+  login(input: LoginInput!): AdminLoginResponse!
+
+  """ADMIN verify OTP for MFA"""
+  verifyMFA(input: MFAInput!): MFAVerifyResponse!
+
+  """User social login"""
+  socialLogin(input: SocialPayloadInput!): SocialResult!
+
+  """User reset MFA"""
+  resetMfa(id: String!): Boolean!
+
+  """User onboarding with OTP verification"""
+  onboarding(input: OnboardingInput!): OnboardingResponse!
+
+  """User verify email"""
+  verifyEmail(input: VerifyOnboardingInput!): VerifyOnboardOutput!
+  logout: GraphQLResultDto!
+  verifySessionMFA: GraphQLResultDto!
+
+  """ADMIN & USER | Send Reset Link to Email"""
+  forgetPassword(input: ForgetPasswordInput!): GraphQLResultDto!
+
+  """ADMIN | Reset Password with Token"""
+  resetPassword(input: ResetPasswordInput!): GraphQLResultDto!
+
+  """ADMIN | Change Password After Login"""
+  changePassword(input: ChangePasswordInput!): GraphQLResultDto!
+
+  """ADMIN | Verify Password while Editing Profile"""
+  verifyPassword(input: VerifyPasswordInput!): GraphQLResultDto!
+}
+
+input LoginInput {
+  """Email address"""
+  email: String!
+
+  """Password"""
+  password: String!
+}
+
+input MFAInput {
+  """One-time password for MFA"""
+  otp: String!
+
+  """Secret key for MFA, required for setup"""
+  secret: String
+
+  """MFA platform being used"""
+  platform: String
+
+  """User type associated with the MFA request"""
+  type: String
+}
+
+input SocialPayloadInput {
+  """User Type"""
+  userType: String! = "2"
+
+  """Country code (e.g., +91)"""
+  countryCode: String = "+91"
+
+  """Phone number (e.g., 7580072925)"""
+  phoneNumber: String
+
+  """Social Login Type"""
+  socialType: SocialType! = Apple
+
+  """Social ID"""
+  socialId: String! = "a122dff2ffg23vc"
+
+  """Full name"""
+  name: NameInput
+
+  """Email address (optional)"""
+  email: String
+}
+
+enum SocialType {
+  Apple
+  Google
+  Facebook
+  LinkedIn
+  github
+}
+
+input NameInput {
+  first: String!
+  last: String!
+}
+
+input OnboardingInput {
+  email: String!
+  password: String!
+}
+
+input VerifyOnboardingInput {
+  """OTP"""
+  otp: String!
+}
+
+input ForgetPasswordInput {
+  """Email address for password reset"""
+  email: String!
+}
+
+input ResetPasswordInput {
+  """New password for the user"""
+  password: String!
+}
+
+input ChangePasswordInput {
+  """Current password of the user"""
+  currentPassword: String!
+
+  """New password for the user"""
+  newPassword: String!
+}
+
+input VerifyPasswordInput {
+  """Current password of the user"""
+  currentPassword: String!
+}

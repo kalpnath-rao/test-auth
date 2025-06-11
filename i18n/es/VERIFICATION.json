@@ -1,0 +1,5 @@
+{
+  "INVALID": "Código incorrecto",
+  "EXPIRED": "Código expirado. Solicita otro código",
+  "MAX_ATTEMPTS_EXCEEDED": "Has alcanzado el límite de intentos. Inténtalo de nuevo en 15 minutos."
+}

@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package Accelerator.User;
+
+import "google/protobuf/empty.proto";
+
+service UserService {
+  rpc version(google.protobuf.Empty) returns (UserVersion) {}
+  rpc initiateMvr(MVRData) returns (google.protobuf.Empty) {}
+  // rpc driverVerificationData(DriverVerification) returns (GetDriverVerificationStatus) {}
+  rpc driverData(DriverData) returns (GetDriverData) {}
+  rpc customerData(CustomerData) returns (GetCustomerData) {}
+  rpc adminData(Ids) returns (GetAdminData) {}
+  // rpc activeAdminsExistInZone(ActiveAdminsExistInZoneReq) returns (ActiveAdminsExistInZoneRes) {}
+  // rpc adminDetailsForZoneDesc(AdminDetailsForZoneDescReq) returns (AdminDetailsForZoneDescRes) {}
+  rpc deleteDriver(DeleteReq) returns (google.protobuf.Empty) {}
+  rpc deleteCustomer(DeleteReq) returns (google.protobuf.Empty) {}
+}
+
+
+message DeleteReq{
+  string id = 1;
+}
+
+message Ids {
+  repeated string id = 1;
+}
+
+message AdminData {
+  string id = 1;
+  string name = 2;
+  string adminId = 3;
+}
+
+message GetAdminData {
+  repeated AdminData adminData = 1;
+}
+
+
+message MVRData {
+  string id = 1;
+  string line1 = 2;
+  string city = 3;
+  string state = 4;
+  string country = 5;
+  string zipcode = 6;
+  string licenseNumber = 7;
+  int32 vehicleType = 8;
+  string ssn = 9;
+}
+
+message UserVersion {
+  string tag = 1;
+}
+
+
+message DriverVerification {
+  string id = 1;
+}
+
+message GetDriverVerificationStatus {
+  int32 onboardingSteps = 1;
+  string  bgvStatus = 2;
+  string  mvrStatus = 3;
+  string idvStatus = 4;
+}
+
+message Name {
+  string first = 1;
+  string last = 2;
+}
+
+message City {
+  string id = 1;
+  string name = 2;
+}
+
+message State {
+  string id = 1;
+  string name = 2;
+}
+message Country {
+  string id = 1;
+  string name = 2;
+}
+
+message DriverData {
+  string id = 1;
+}
+
+message GetDriverData {
+  int32 onboardingSteps = 1;
+  string  bgvStatus = 2;
+  string  mvrStatus = 3;
+  string idvStatus = 4;
+  Name name = 5;
+  string avatar = 6;
+  City workingCity= 7;
+  State workingState = 8;
+  Country workingCountry = 9;
+}
+message CustomerData {
+  string id = 1;
+}
+
+message GetCustomerData {
+  Name name = 1;
+  string avatar = 2;
+  int64 rating = 3;
+}
+
+message ActiveAdminsExistInZoneReq{
+  string zoneId = 1;
+}
+
+message ActiveAdminsExistInZoneRes {
+  bool activeAdminExists = 1;
+}
+
+message AdminDetailsForZoneDescReq {
+  string zoneId = 1;
+  repeated string adminIds = 2;
+}
+
+message AdminDetailsForZoneDescRes {
+  int32 count = 1;
+  repeated AdminData adminNames = 2;
+}

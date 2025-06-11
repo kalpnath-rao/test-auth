@@ -1,0 +1,9 @@
+{
+  "SUCCESS": "Successfully",
+  "USER_NOT_FOUND": "This Email Address isn’t registered with us in arabic",
+  "PASSWORD_CHANGE_SUCCESS": "Password changed successfully",
+  "FORGET_SUCCESS": "Success",
+  "PASSWORD_RESET_SUCCESS": "Password changed successfully",
+  "UPDATE_SUCCESS": "Updated successfully",
+  "USERS_NOT_FOUND": "Users not found"
+}

@@ -1,0 +1,14 @@
+{
+  "NOT_FOUND": "This Email ID isn’t registered with us",
+  "BLOCKED": "Your account is blocked! Please contact administrator",
+  "WRONG_CREDENTIALS": "Invalid credentials, You have {{ATTEMPTS}} left",
+  "LOGIN_BLOCKED": "Wrong attempts exhausted, please try again after {{TIME}}",
+  "WRONG_MFA_TOKEN": "Invalid token! Please login again",
+  "WRONG_MFA_OTP": "OTP code is invalid",
+  "LOGIN_SUCCESS": "Login Successful",
+  "MFA_VERIFIED": "OTP verified successfully",
+  "SIGNUP_SUCCESS": "Sign Up Successful",
+  "ACCOUNT_ALREADY_EXISTS": "This Email Address already registered with us",
+  "INVALID_TOKEN": "Invalid token! Please SignUp again",
+  "SUCCESS_PERMISSIONS": "Permissions found successfully"
+}
