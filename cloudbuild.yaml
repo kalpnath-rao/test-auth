@@ -11,105 +11,22 @@ steps:
           _ENV=$BRANCH_NAME
         fi
         echo $${_ENV} > /workspace/env_var.txt
-  - name: "gcr.io/cloud-builders/docker"
-    id: "retrive-latest"
-    entrypoint: "bash"
-    args:
-      - -c
-      - |
-        _ENV=$(cat /workspace/env_var.txt) 
-        docker pull ${_LOCATION}-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$$_ENV:latest || exit 0
-  # Run docker proyect
-  - name: "gcr.io/cloud-builders/docker"
-    id: "build-docker"
-    secretEnv: ["ENV"]
-    entrypoint: "bash"
-    args:
-      - -c
-      - |
-        _ENV=$(cat /workspace/env_var.txt)
-        echo "$$ENV" >> /workspace/.env
-        cat /workspace/.env
-        cp /workspace/.env .
-        docker build --build-arg ENVIRONMENT=$$_ENV \
-        -f Dockerfile \
-        -t ${_LOCATION}-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$$_ENV:$SHORT_SHA \
-        -t ${_LOCATION}-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$$_ENV:latest \
-        --cache-from ${_LOCATION}-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$$_ENV:latest .
-  # Run push image docker
-  - name: "gcr.io/cloud-builders/docker"
-    id: "push-docker"
-    entrypoint: "bash"
-    args:
-      - -c
-      - |
-        _ENV=$(cat /workspace/env_var.txt)
-        docker push ${_LOCATION}-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$$_ENV:$SHORT_SHA && 
-        docker push ${_LOCATION}-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$$_ENV:latest
-  - name: "gcr.io/cloud-builders/git"
-    secretEnv: ["SSH_KEY", "SSH_HOST"]
-    entrypoint: "bash"
-    args:
-      - "-c"
-      - |
-        echo "$$SSH_KEY" >> /root/.ssh/id_rsa
-        chmod 400 /root/.ssh/id_rsa
-        echo "$$SSH_HOST" >> /root/.ssh/known_hosts
-    volumes:
-      - name: "ssh"
-        path: /root/.ssh
-  # Edit Kustomize layer in config repo and push changes
-  - name: gcr.io/cloud-builders/git
-    id: "push-git"
-    entrypoint: "bash"
-    args:
-      - "-c"
-      - |
-        _ENV=$(cat /workspace/env_var.txt)
-        echo "Cloning repo ..."
-        git clone --recurse-submodules git@github.com:NMasLive/nmas-manifests
-        echo "Updating image tag version ..."
-        cd nmas-manifests
-        ls
-        echo "Path to replace only brand content: $$_ENV"
-        sed -i "s#\bimage: ${_LOCATION}-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$$_ENV:.*#$1image: ${_LOCATION}-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$$_ENV:$SHORT_SHA#" ./$REPO_NAME/overlays/$$_ENV/kustomization.yaml
-        echo "Pushing changes to git config repo ..."
-        git config --global user.name BotDevOps
-        git config --global user.email tech.nmas@televisa.news
-        git add -A
-        git commit -m "Updated with build ${BUILD_ID} from ${REPO_NAME} commit ${COMMIT_SHA}"
-        git push origin main
-    volumes:
-      - name: "ssh"
-        path: /root/.ssh
-  - name: "ubuntu"
-    id: "run-slack-automation"
-    secretEnv: ["URL_SLACK"]
-    waitFor: ["push-git"]
-    entrypoint: bash
-    args:
-      - -c
-      - apt update && apt install -y curl &&
-        curl -X POST -H 'Content-type:application/json' --data '{"text":"Deploy finished Repo->$REPO_NAME Branch->$BRANCH_NAME"}' $$URL_SLACK
 
-availableSecrets:
-  secretManager:
-    - versionName: projects/$PROJECT_NUMBER/secrets/ssh-deploys-nmas/versions/latest
-      env: "SSH_KEY"
-    - versionName: projects/$PROJECT_NUMBER/secrets/notifications-deploys-nmas/versions/latest
-      env: "URL_SLACK"
-    - versionName: projects/$PROJECT_NUMBER/secrets/ssh-host/versions/latest
-      env: "SSH_HOST"
-    - versionName: projects/$PROJECT_NUMBER/secrets/$REPO_NAME-$BRANCH_NAME-env/versions/latest
-      env: "ENV"
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: "trigger-gateway-rebuild"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        _ENV=$(cat /workspace/env_var.txt)
+        echo "Triggering gateway rebuild on branch=$_ENV..."
+        gcloud builds triggers run gateway-trigger --branch="$_ENV"
+
 
 substitutions:
-  _TYPE_DEPLOY: "cloud-build"
   _LOCATION: "us-east1"
-  _ENV: "dev"
-  _PAYLOAD_SECRET: "29f3ef95d094f3acac1fa91a"
+  _ENV: "main"
+
 options:
   substitution_option: "ALLOW_LOOSE"
   logging: CLOUD_LOGGING_ONLY
-  pool:
-    name: "projects/supernova-works/locations/us-east1/workerPools/private-pool-supernova-works"
